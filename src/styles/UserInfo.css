@@ -1,0 +1,17 @@
+.userInfo {
+  display: flex;
+  margin-top: 5px;
+  margin-bottom: 25px;
+}
+.userInfo .avatar {
+  height: 40px;
+  width: 40px;
+  background-color: white;
+  border: 2px solid white;
+  border-radius: 5px;
+}
+.userInfo p {
+  margin-top: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
+}

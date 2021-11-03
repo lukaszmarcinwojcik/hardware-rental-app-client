@@ -1,0 +1,23 @@
+.logoutButton {
+  display: flex;
+  padding: 12px 18px;
+  transition: 0.3s;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  margin-top: 5px;
+}
+.logoutButton:hover {
+  background-color: blue;
+  cursor: pointer;
+}
+
+.logoutImg {
+  height: 24px;
+  width: 24px;
+  background-image: url("../assets/logOutBtn.png");
+}
+
+.logoutButton p {
+  margin: auto;
+  margin-left: 13px;
+}

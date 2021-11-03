@@ -1,0 +1,55 @@
+nav.main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.userInfo {
+  flex-basis: 40px;
+}
+
+/* .logoutButton {
+} */
+.main ul {
+  list-style-type: none;
+  flex-grow: 1;
+}
+
+nav.main a {
+  /* display: block; */
+  /* justify-content: center; */
+  display: flex;
+  text-decoration: none;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+  padding: 12px 18px;
+  margin-top: 8px;
+  transition: 0.3s;
+}
+
+nav.main a:hover {
+  background-color: rgb(42, 42, 207);
+}
+nav.main a.active {
+  background-color: blue;
+}
+.navImg {
+  height: 24px;
+  width: 24px;
+}
+
+.hardwareListNav {
+  background-image: url("../assets/hardwareListNav.png");
+}
+
+.rentHardwareNav {
+  background-image: url("../assets/rentHardwareNav.png");
+}
+.adminNav {
+  background-image: url("../assets/adminNav.png");
+}
+
+.navTxt {
+  margin: auto;
+  margin-left: 13px;
+}
