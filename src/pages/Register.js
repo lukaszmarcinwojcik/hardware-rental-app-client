@@ -1,11 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+
+import ErrorsList from "../components/ErrorList";
 
 const API = "https://";
 
 const Error = (props) => <p className="error">{props.error}</p>;
 
 function Register() {
+  let history = useHistory();
+
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -15,15 +19,7 @@ function Register() {
     confirmPassword: "",
   });
 
-  const [errors, setErrors] = useState({
-    error: "jakis blad",
-    firstNameError: "zle imie",
-    lastNameError: "zle nazwisko",
-    emailError: "zly email",
-    avatarError: "zly link",
-    passwordError: "zle haslo",
-    confirmPasswordError: "hasla sie roznia",
-  });
+  const [errors, setErrors] = useState([]);
 
   const handleInput = (e) => {
     const name = e.target.name;
@@ -33,9 +29,39 @@ function Register() {
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
+    console.log("wysylam do bakendu: ", user);
     e.preventDefault();
-  };
+    try {
+      const response = await fetch(`http://localhost:4000/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user,
+        }),
+      });
+      if (!response.ok) {
+        throw Error(response.statusText);
+      } else {
+        const data = await response.json();
+        console.log("to mi przyszło: )", data);
+        if (data.errors) {
+          setErrors(data.errors);
+          setUser(data.user);
+        } else {
+          console.log("udalo Ci sie zarejestrować", user);
+          setErrors([]);
+          setUser(data.user);
+          history.push("/login");
+          console.log("odpalilo sie use History");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className={"formContainer"}>
@@ -51,7 +77,6 @@ function Register() {
             name="firstName"
             id="firstName"
           />
-          {errors.firstNameError && <Error error={errors.firstNameError} />}
         </div>
         <div className="loginPanelDiv">
           <label htmlFor="lastName">Last name</label>
@@ -63,7 +88,6 @@ function Register() {
             name="lastName"
             id="lastName"
           />
-          {errors.lastNameError && <Error error={errors.lastNameError} />}
         </div>
         <div className="loginPanelDiv">
           <label htmlFor="email">Email</label>
@@ -75,7 +99,6 @@ function Register() {
             name="email"
             id="email"
           />
-          {errors.emailError && <Error error={errors.emailError} />}
         </div>
         <div className="loginPanelDiv">
           <label htmlFor="avatar">Avatar</label>
@@ -87,7 +110,6 @@ function Register() {
             name="avatar"
             id="avatar"
           />
-          {errors.avatarError && <Error error={errors.avatarError} />}
         </div>
         <div className="loginPanelDiv">
           <label htmlFor="password">Password</label>
@@ -99,7 +121,6 @@ function Register() {
             name="password"
             id="password"
           />
-          {errors.passwordError && <Error error={errors.passwordError} />}
         </div>
         <div className="loginPanelDiv">
           <label htmlFor="confirmPassword">Confirm password</label>
@@ -111,10 +132,8 @@ function Register() {
             name="confirmPassword"
             id="confirmPassword"
           />
-          {errors.confirmPasswordError && (
-            <Error error={errors.confirmPasswordError} />
-          )}
-          {errors.error && <Error error={errors.error} />}
+
+          {errors.length === 0 ? null : <ErrorsList errorsList={errors} />}
         </div>
         <button className={"submitBtn"} onClick={handleSubmit}>
           Register

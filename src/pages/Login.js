@@ -1,21 +1,29 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
 
+import ErrorsList from "../components/ErrorList";
+import { AppContext } from "../components/AppContext";
 const API = "https://";
 
-const Error = (props) => <p className="error">{props.error}</p>;
-
 function Login() {
+  let history = useHistory();
+  const {
+    userInfo,
+    setUserInfo,
+    setUserRole,
+    setUserAvatar,
+    setIsUserLogged,
+    checkIsUserLoggedIn,
+  } = useContext(AppContext);
+
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-
-  const [errors, setErrors] = useState({
-    error: "jakis blad",
-    emailError: "zly email",
-    passwordError: "zle haslo",
-  });
+  const [errors, setErrors] = useState([]);
+  useEffect(() => {
+    checkIsUserLoggedIn();
+  }, []);
 
   const handleInput = (e) => {
     const name = e.target.name;
@@ -25,9 +33,47 @@ function Login() {
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
+    console.log("wysylam do bakendu: ", user);
     e.preventDefault();
-  };
+    try {
+      const response = await fetch(`http://localhost:4000/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user,
+        }),
+      });
+      if (!response.ok) {
+        throw Error(response.statusText);
+      } else {
+        const data = await response.json();
+        console.log("to mi przyszło: )", data);
+        if (data.errors) {
+          setErrors(data.errors);
+          setUser(data.user);
+        } else {
+          console.log("udalo Ci sie zalogować", data);
+          setErrors([]);
+          setUser(data.user);
+          setUserInfo(data.userInfo);
+          setIsUserLogged(true);
+          setUserRole(data.userInfo.role);
+          if (data.userInfo.avatar) {
+            setUserAvatar(data.userInfo.avatar);
+          }
+          localStorage.setItem("accessToken", data.accessToken);
+          localStorage.setItem("userInfo", JSON.stringify(data.userInfo));
+          history.push("/dashboard");
+          console.log("odpalilo sie use History");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className={"formContainer"}>
@@ -43,7 +89,6 @@ function Login() {
             name="email"
             id="email"
           />
-          {errors.emailError && <Error error={errors.emailError} />}
         </div>
         <div className="loginPanelDiv">
           <label htmlFor="password">Password</label>
@@ -55,8 +100,7 @@ function Login() {
             name="password"
             id="password"
           />
-          {errors.passwordError && <Error error={errors.passwordError} />}
-          {errors.error && <Error error={errors.error} />}
+          {errors.length === 0 ? null : <ErrorsList errorsList={errors} />}
         </div>
         <button className={"submitBtn"} onClick={handleSubmit}>
           Login
