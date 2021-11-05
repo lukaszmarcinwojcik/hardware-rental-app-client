@@ -1,0 +1,54 @@
+.loginPanelWrapper {
+  /* background-color: green; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+.formContainer {
+  padding: 30px;
+}
+.formContainer h1 {
+  text-align: center;
+}
+
+.loginPanelDiv input {
+  height: 50px;
+  width: 350px;
+  font-size: 16px;
+  border: 2px solid gray;
+  margin: 10px 0px;
+  border-radius: 30px;
+  padding: 20px;
+}
+
+.loginPanelButton {
+  height: 50px;
+  /* width: 350px; */
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  border: 2px solid blue;
+  background-color: blue;
+  color: white;
+  margin: 10px 0px 20px;
+  border-radius: 30px;
+}
+.loginPanelButton:hover {
+  cursor: pointer;
+  background-color: rgb(8, 8, 85);
+}
+
+.formContainer a {
+  text-decoration: none;
+  color: blue;
+  font-weight: bold;
+}
+.formContainer a:hover {
+  color: rgb(8, 8, 85);
+}
+
+.formContainer h1 {
+  margin-bottom: 20px;
+  font-size: 35px;
+}

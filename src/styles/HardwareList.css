@@ -1,0 +1,129 @@
+.hardwareList {
+  padding: 30px 40px;
+}
+
+.hardwareListSortPanel {
+  display: flex;
+  justify-content: space-between;
+  background: lightgrey;
+  max-width: 1000px;
+  padding: 20px 30px;
+  border-radius: 10px;
+  margin: 5px auto;
+}
+.hardwareListUl {
+  padding: 0px 20px;
+  max-width: 1000px;
+  margin: 5px auto;
+}
+
+.hardwareListLi {
+  display: flex;
+  justify-content: space-between;
+
+  /* max-width: 1000px; */
+  border-bottom: 2px lightgray solid;
+
+  padding: 5px 10px;
+}
+
+/* li.hardwareListSortPanel {
+  background: none;
+  border-bottom: 2px lightgray solid;
+  border-radius: 0px;
+  padding: 5px 20px;
+} */
+
+.nameAndCompanyLabel {
+  width: 250px;
+  background: hotpink;
+}
+.dateLabel {
+  width: 120px;
+  background: green;
+}
+.availabillityLabel {
+  width: 120px;
+  background: yellow;
+}
+.rentLabel {
+  width: 110px;
+  background: red;
+}
+.deleteLabel {
+  width: 110px;
+  /* background: red; */
+}
+.editLabel {
+  width: 110px;
+  /* background: red; */
+}
+.repairLabel {
+  width: 110px;
+  /* background: red; */
+}
+
+.avilable {
+  color: green;
+  font-weight: bold;
+}
+.notAvilable {
+  color: red;
+  font-weight: bold;
+}
+
+.activeButton {
+  font-size: 15px;
+  font-weight: bold;
+  width: 110px;
+  height: 40px;
+  color: green;
+  background-color: lightgreen;
+  border: 2px solid green;
+  border-radius: 10px;
+}
+.activeButton:hover {
+  cursor: pointer;
+  background: lime;
+}
+.activeEditButton {
+  font-size: 15px;
+  font-weight: bold;
+  width: 110px;
+  height: 40px;
+  color: orange;
+  background-color: lightyellow;
+  border: 2px solid orange;
+  border-radius: 10px;
+}
+
+.activeEditButton:hover {
+  cursor: pointer;
+  background: rgb(243, 220, 13);
+}
+
+.activeDeleteButton {
+  font-size: 15px;
+  font-weight: bold;
+  width: 110px;
+  height: 40px;
+  color: red;
+  background-color: rgba(255, 0, 0, 0.329);
+  border: 2px solid red;
+  border-radius: 10px;
+}
+
+.activeDeleteButton:hover {
+  cursor: pointer;
+  background: rgba(255, 0, 0, 0.607);
+}
+.notActiveButton {
+  font-size: 15px;
+  font-weight: bold;
+  width: 110px;
+  height: 40px;
+  color: grey;
+  background-color: lightgray;
+  border: 2px solid grey;
+  border-radius: 10px;
+}

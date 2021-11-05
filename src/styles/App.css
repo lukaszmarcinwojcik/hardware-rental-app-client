@@ -2,7 +2,6 @@ div.app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  /* background-color: #ddd; */
   border: 2px darkgrey solid;
 }
 
@@ -20,5 +19,13 @@ section.page {
   flex-grow: 1;
 }
 .error {
-  color: brown;
+  color: red;
+  margin: 10px 0px;
+}
+.page {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 35px;
 }
