@@ -2,9 +2,15 @@ import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { AppContext } from "../components/AppContext";
 import "../styles/LogoutButton.css";
+
 function LogoutButton() {
-  const { setUserInfo, setIsUserLogged, setUserRole, setUserAvatar } =
-    useContext(AppContext);
+  const {
+    setUserInfo,
+    setIsUserLogged,
+    setUserRole,
+    setUserAvatar,
+    setUserId,
+  } = useContext(AppContext);
 
   let history = useHistory();
   const handleLogout = () => {
@@ -12,6 +18,7 @@ function LogoutButton() {
     setUserInfo(null);
     setIsUserLogged(false);
     setUserRole(null);
+    setUserId(null);
     setUserAvatar(null);
     history.push("/login");
   };

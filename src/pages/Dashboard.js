@@ -1,8 +1,6 @@
 import Navigation from "../layouts/Navigation";
 import Page from "../layouts/Page";
 
-import { useEffect } from "react";
-import { useHistory } from "react-router-dom";
 function Dashboard() {
   return (
     <>

@@ -8,26 +8,23 @@ const AppProvider = ({ children }) => {
   const [isUserLogged, setIsUserLogged] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
   const [userAvatar, setUserAvatar] = useState(null);
+  const [userId, setUserId] = useState(null);
   const [userRole, setUserRole] = useState(null);
 
   const checkIsUserLoggedIn = () => {
-    console.log("sprawdzam czy uzytkownik zalogowany?");
-
     const foundUser = JSON.parse(localStorage.getItem("userInfo"));
     if (foundUser) {
-      console.log("uzytkownik zalogowany!");
       setUserInfo(foundUser);
       setIsUserLogged(true);
+      setUserId(foundUser._id);
       setUserRole(foundUser.role);
       if (foundUser.avatar) {
         setUserAvatar(foundUser.avatar);
       }
       setUserRole(foundUser.role);
       history.push("/dashboard");
-
       return;
     }
-    console.log("uzytkownik nie ejstn zalogowany :<");
   };
 
   return (
@@ -42,6 +39,8 @@ const AppProvider = ({ children }) => {
         setUserRole,
         userAvatar,
         setUserAvatar,
+        userId,
+        setUserId,
       }}
     >
       {children}

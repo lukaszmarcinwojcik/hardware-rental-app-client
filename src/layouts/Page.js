@@ -1,9 +1,11 @@
 import { Switch, Route, Redirect } from "react-router-dom";
 import { useContext } from "react";
+
 import HardwareList from "../components/HardwareList";
-import RentHardware from "../components/RentHardware";
+import RentHardwareList from "../components/RentHardwareList";
 import AdminPanel from "../components/AdminPanel";
 import ErrorPage from "../pages/ErrorPage";
+
 import "../styles/Page.css";
 
 import { AppContext } from "../components/AppContext";
@@ -24,7 +26,7 @@ function Page() {
           <Redirect to="/login" />
         )}
         {isUserLogged ? (
-          <Route path="/dashboard/renthardware" component={RentHardware} />
+          <Route path="/dashboard/renthardware" component={RentHardwareList} />
         ) : (
           <Redirect to="/login" />
         )}

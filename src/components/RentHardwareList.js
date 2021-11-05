@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-
-import Hardware from "./Hardware";
-
 import "../styles/HardwareList.css";
+import { useContext, useEffect, useState } from "react";
+import { AppContext } from "./AppContext";
+import RentHardware from "./RentHardware";
 
-function HardwareList() {
+function RentHardwareList() {
+  const { userId } = useContext(AppContext);
+
   const [hardwareData, setHardwareData] = useState([]);
-
   useEffect(() => {
     getHardwareData();
   }, []);
@@ -24,7 +24,7 @@ function HardwareList() {
       } else {
         const data = await response.json();
         if (data.errors) {
-          console.log(data.error);
+          console.log(data.errors);
         } else {
           console.log(data.hardwareData);
           setHardwareData(data.hardwareData);
@@ -35,8 +35,12 @@ function HardwareList() {
     }
   }
 
-  let hardwareDataList = hardwareData.map((hardware) => (
-    <Hardware
+  let rentHardwareDataList = hardwareData.filter(
+    (hardware) => hardware.user === userId
+  );
+
+  rentHardwareDataList = rentHardwareDataList.map((hardware) => (
+    <RentHardware
       getHardwareData={getHardwareData}
       key={hardware._id}
       _id={hardware._id}
@@ -50,19 +54,18 @@ function HardwareList() {
 
   return (
     <>
-      <h1 className={"pageTitle"}>Hardware list</h1>
+      <h1 className={"pageTitle"}>Rent hardware</h1>
 
       <div className={"hardwareList"}>
         <div className={"hardwareListSortPanel"}>
           <div className="nameAndCompanyLabel">Name &#38; Company</div>
           <div className="dateLabel">Date</div>
-          <div className={"availabillityLabel"}>Availabillity</div>{" "}
-          <div className={"rentLabel"}>Rent</div>
+          <div className={"rentLabel"}>Return</div>
         </div>
-        <ul className={"hardwareListUl"}>{hardwareDataList}</ul>
+        <ul className={"hardwareListUl"}>{rentHardwareDataList}</ul>
       </div>
     </>
   );
 }
 
-export default HardwareList;
+export default RentHardwareList;

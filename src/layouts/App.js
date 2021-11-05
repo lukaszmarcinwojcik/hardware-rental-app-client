@@ -1,21 +1,17 @@
-import "../styles/App.css";
-
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
 import ErrorPage from "../pages/ErrorPage";
 
-import React, { useEffect, useState, useContext, createContext } from "react";
-
 import AppProvider from "../components/AppContext";
-
 import {
   BrowserRouter as Router,
-  Link,
   Route,
   Switch,
   Redirect,
 } from "react-router-dom";
+
+import "../styles/App.css";
 
 function App() {
   return (

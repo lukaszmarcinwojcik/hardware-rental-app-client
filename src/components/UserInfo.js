@@ -1,15 +1,12 @@
-import "../styles/UserInfo.css";
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { AppContext } from "./AppContext";
+
+import "../styles/UserInfo.css";
 import defaultAvatar from "../assets/defaultAvatar.png";
 
 function UserInfo() {
   const { userInfo, userAvatar } = useContext(AppContext);
-  // console.log("to avatar", userInfo.avatar);
 
-  if (userInfo) {
-    console.log("jest avatar", userInfo.avatar);
-  }
   return (
     <div className={"userInfo"}>
       <img
