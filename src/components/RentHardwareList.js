@@ -2,38 +2,15 @@ import "../styles/HardwareList.css";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "./AppContext";
 import RentHardware from "./RentHardware";
+import useHardware from "../hooks/useHardware";
 
 function RentHardwareList() {
   const { userId } = useContext(AppContext);
+  const { getHardwareData, hardwareData } = useHardware();
 
-  const [hardwareData, setHardwareData] = useState([]);
   useEffect(() => {
     getHardwareData();
   }, []);
-
-  async function getHardwareData() {
-    try {
-      const response = await fetch(`http://localhost:4000/hardware`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok) {
-        throw Error(response.statusText);
-      } else {
-        const data = await response.json();
-        if (data.errors) {
-          console.log(data.errors);
-        } else {
-          console.log(data.hardwareData);
-          setHardwareData(data.hardwareData);
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   let rentHardwareDataList = hardwareData.filter(
     (hardware) => hardware.user === userId

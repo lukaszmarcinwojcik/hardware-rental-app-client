@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 
 import AdminHardware from "./AdminHardware";
 import AdminAddHardwarePanel from "./AdminAddHardwarePanel";
+import useHardware from "../hooks/useHardware";
 
 import "../styles/HardwareList.css";
 
 function AdminPanel() {
+  const { getHardwareData, hardwareData } = useHardware();
   const [adminAddPanelIsActive, setAdminAddPanelIsActive] = useState(false);
 
   const toogleAddPanelStatus = () => {
@@ -13,34 +15,9 @@ function AdminPanel() {
     setAdminAddPanelIsActive(!adminAddPanelIsActive);
   };
 
-  const [hardwareData, setHardwareData] = useState([]);
   useEffect(() => {
     getHardwareData();
   }, []);
-
-  async function getHardwareData() {
-    try {
-      const response = await fetch(`http://localhost:4000/hardware`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok) {
-        throw Error(response.statusText);
-      } else {
-        const data = await response.json();
-        if (data.errors) {
-          console.log(data.error);
-        } else {
-          console.log(data.hardwareData);
-          setHardwareData(data.hardwareData);
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   let hardwareDataList = hardwareData.map((hardware) => (
     <AdminHardware
